@@ -1,3 +1,7 @@
+/**
+ * 一个人人都会的猜数字小游戏
+ */
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
