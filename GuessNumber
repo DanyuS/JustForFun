@@ -1,0 +1,76 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Random;
+
+public class GuessNumber {
+    public static void main(String args[]) throws IOException {
+        System.out.println("Initiating game data...");
+        Random random = new Random();
+        ArrayList<Integer> array = new ArrayList<Integer>();
+        for (int i = 0; i < 4; i++) {
+            int a = random.nextInt(10);
+            while (!validateRepeatablity(a, array)) {
+                a = random.nextInt(10);
+            }
+            array.add(a);
+        }
+        String str = "";
+        for (int i = 0; i < 4; i++) {
+            str = str + String.valueOf(array.get(i));
+        }
+        System.out.println("Now game start!");
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        for (int i = 0; i < 10; i++) {
+            String guessStr = br.readLine();
+            String result = guessNumAnalysis(str, guessStr, i);
+            if (result.equals("Win!")) {
+                System.out.println(result);
+                break;
+            } else {
+                System.out.println(result);
+                System.out.println("请继续输入");
+            }
+        }
+
+        System.out.println("Game over");
+        System.out.println("结果为：" + str);
+    }
+
+    private static boolean validateRepeatablity(int num, ArrayList<Integer> array) {
+        boolean result = true;
+        for (int a : array) {
+            if (a == num) {
+                result = false;
+                break;
+            }
+        }
+        return result;
+    }
+
+    private static String guessNumAnalysis(String rightStr, String guessStr, int guessNum) {
+        int len = rightStr.length();
+        int Anum = 0;
+        int Bnum = 0;
+        String result;
+        for (int i = 0; i < len; i++) {
+            String temp = rightStr.substring(i, i + 1);
+            for (int j = 0; j < len; j++) {
+                if (temp.equals(guessStr.substring(j, j + 1))) {
+                    if (i == j) {
+                        Anum++;
+                    } else {
+                        Bnum++;
+                    }
+                }
+            }
+        }
+        if (Anum == len) {
+            result = "Win!";
+        } else {
+            result = Anum + "A" + Bnum + "B------你还有" + (9 - guessNum) + "次机会";
+        }
+        return result;
+    }
+}
