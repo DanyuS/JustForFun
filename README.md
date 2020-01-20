@@ -1,2 +1,2 @@
 # JustForFun
-![image](http://github.com/DanyuS/master/image.png)
+![image](http://github.com/DanyuS/JustForFun/blob/master/image.png)
